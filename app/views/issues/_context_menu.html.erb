@@ -1,0 +1,46 @@
+<% if @safe_attributes.include?('start_date') %>
+  <li class="folder">
+    <a href="#" class="submenu"><%= l(:field_start_date) %></a>
+    <ul>
+      <% context_menu_start_date_options.each do |t, d| %>
+        <%
+          new_due_date = 'none'
+          unless d == 'none'
+            if @issue && @issue.start_date && @issue.due_date
+              date_diff = @issue.due_date - @issue.start_date
+              new_due_date = (d + date_diff).to_date
+            elsif @issue
+              new_due_date = @issue.due_date
+              else
+                @issues.each do |issue|
+                  if issue.start_date && issue.due_date
+                    date_diff = issue.due_date - issue.start_date
+                    new_due_date = (d + date_diff).to_date
+                  else
+                    new_due_date = issue.due_date
+                  end
+                end
+            end
+          end
+        %>
+        <li>
+          <%= context_menu_link t,
+                                bulk_update_issues_path(:ids => @issue_ids, :issue => { 'start_date' => d.to_s, 'due_date' => new_due_date == 'none' ? 'none' : new_due_date.to_s },
+                                                        :back_url => @back), :method => :post, :selected => (@issue && d == @issue.start_date), :disabled => !@can[:edit] %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
+
+<% if @safe_attributes.include?('due_date') %>
+  <li class="folder">
+    <a href="#" class="submenu"><%= l(:field_due_date) %></a>
+    <ul>
+      <% context_menu_due_date_options.each do |t, d| %>
+        <li><%= context_menu_link t, bulk_update_issues_path(:ids => @issue_ids, :issue => { 'due_date' => d.to_s }, :back_url => @back), :method => :post,
+                                  :selected => (@issue && d == @issue.due_date), :disabled => !@can[:edit] %></li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>

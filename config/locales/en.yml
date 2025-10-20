@@ -1,0 +1,19 @@
+en:
+  context_menu_due_date:
+    today: Today
+    tomorrow: Tomorrow
+    in_2_days: In 2 days
+    next_workday: Next workday
+    in_7_days: In 7 days
+    in_14_days: In 14 days
+    in_30_days: In 30 days
+    none: none
+  context_menu_start_date:
+    today: Today
+    tomorrow: Tomorrow
+    in_2_days: In 2 days
+    next_workday: Next workday
+    in_7_days: In 7 days
+    in_14_days: In 14 days
+    in_30_days: In 30 days
+    none: none
